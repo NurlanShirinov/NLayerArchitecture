@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NLayer.Core;
+using NLayer.Core.Models;
 using NLayer.Repository.Configurations;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace NLayer.Repository
 {
-    public class AppDbContext:DbContext
+    public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -25,6 +25,31 @@ namespace NLayer.Repository
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly()); // Assembly-e muraciet et hansi ki execute etdiyim assembly-lere. onlarda Configuration folderinde yazdiqlarimdir. her birin ishledecek
             //modelBuilder.ApplyConfiguration(new ProductConfiguration());    //Yalniz bir configuration ishletmek isdedikde bu formada yazilir. lakin configurationlarim coxlu olduguna gore yuxaridaki kod daha best practice dir.
+
+
+
+
+            //ProductFeatyre üçün yazılan bu kodu Seeds folderinin daxilində digər CatergorySeed və ProductSeed
+            //kimi də ayrı klassda yaza bilərdik bu formada yazildigini gotmek ucun burda yazdiq.
+
+            modelBuilder.Entity<ProductFeature>().HasData(new ProductFeature()
+            {
+                Id = 1,
+                Color = "Kirmizi",
+                Height = 100,
+                Width = 200,
+                ProductId = 1
+            },
+            new ProductFeature()
+            {
+                Id = 2,
+                Color = "Mavi",
+                Height = 300,
+                Width = 500,
+                ProductId = 2
+            });
+
+
             base.OnModelCreating(modelBuilder);
         }
     }
