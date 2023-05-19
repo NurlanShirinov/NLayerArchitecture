@@ -37,8 +37,7 @@ namespace NLayer.API.Modules
             //InstancePerDependency => transient - uygun gelir
 
 
-            builder.RegisterType<ProductServiceWithCaching>().As<IProductService>();
-
+            //builder.RegisterType<ProductServiceWithCaching>().As<IProductService>();
         }
     }
 }

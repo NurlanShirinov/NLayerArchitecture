@@ -38,9 +38,6 @@ namespace NLayer.Repository
                     }
                 }
             }
-
-
-
             return base.SaveChanges();
         }
 
