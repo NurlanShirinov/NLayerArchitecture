@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using NLayer.Caching;
 using NLayer.Core.Repositories;
 using NLayer.Core.Services;
 using NLayer.Core.UnitOfWorks;
@@ -11,9 +10,9 @@ using NLayer.Service.Services;
 using System.Reflection;
 using Module = Autofac.Module;
 
-namespace NLayer.API.Modules
+namespace NLayer.Web.Modules
 {
-    public class RepoServiceModule:Module
+    public class RepoServiceModule : Module
     {
 
         protected override void Load(ContainerBuilder builder)
@@ -27,17 +26,14 @@ namespace NLayer.API.Modules
             var repoAssembly = Assembly.GetAssembly(typeof(AppDbContext));
             var serviceAssembly = Assembly.GetAssembly(typeof(MapProfile));
 
-            builder.RegisterAssemblyTypes(apiAssembly, repoAssembly,serviceAssembly).Where(x=>x.Name.EndsWith("Repository"))
+            builder.RegisterAssemblyTypes(apiAssembly, repoAssembly, serviceAssembly).Where(x => x.Name.EndsWith("Repository"))
                 .AsImplementedInterfaces().InstancePerLifetimeScope().InstancePerLifetimeScope();
 
-            builder.RegisterAssemblyTypes(apiAssembly, repoAssembly, serviceAssembly).Where(x => x.Name.EndsWith("Service")) 
+            builder.RegisterAssemblyTypes(apiAssembly, repoAssembly, serviceAssembly).Where(x => x.Name.EndsWith("Service"))
                 .AsImplementedInterfaces().InstancePerLifetimeScope().InstancePerLifetimeScope();
 
             //InstancePerLifetimeScope => ASP.NET -de Scope uygundur
             //InstancePerDependency => transient - uygun gelir
-
-
-            builder.RegisterType<ProductServiceWithCaching>().As<IProductService>();
 
         }
     }
